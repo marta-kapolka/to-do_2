@@ -1,0 +1,66 @@
+@import "../variables.scss";
+
+// local variables:
+$image-size: 3rem; // same as input height
+$image-offset: 0.8rem;
+$transition-time: 0.1s; // transition-duration for the upper filter button
+
+.filter {
+  position: absolute;
+  right: 0;
+  top: 0;
+  &__button {
+    background-color: $primary-color;
+    color: $background-color;
+    height: $filter-button-size;
+    outline-offset: -0.5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition-property: top;
+    transition-timing-function: ease-out;
+    width: $filter-button-size;
+    &--not-done {
+      transition-duration: $transition-time;
+      z-index: 3;
+      &.open {
+        top: 6.2rem;
+      }
+      &.closing {
+        transition-delay: calc(#{$transition-time} * 2);
+      }
+    }
+    &--done {
+      transition-duration: calc(#{$transition-time} * 2);
+      z-index: 2;
+      &.open {
+        top: 12.4rem;
+      }
+      &.closing {
+        transition-delay: $transition-time;
+      }
+    }
+    &--all {
+      transition-duration: calc(#{$transition-time} * 3);
+      z-index: 1;
+      &.open {
+        top: 18.6rem;
+      }
+    }
+  }
+  &__image {
+    height: $image-size;
+    width: $image-size;
+    &--all {
+      position: absolute;
+      &-not-done {
+        bottom: $image-offset;
+        left: $image-offset;
+      }
+      &-done {
+        right: $image-offset;
+        top: $image-offset;
+      }
+    }
+  }
+}

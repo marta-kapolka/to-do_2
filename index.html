@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Oswald&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="styles/css/main.css" />
+    <title>to-do-list</title>
+    <script>
+      function changeStatus() {
+        event.currentTarget.parentNode.classList.toggle("list-item--done");
+        event.currentTarget.parentNode.classList.toggle("list-item--not-done");
+        event.currentTarget.parentNode.classList.toggle("list-item--done--js");
+        event.currentTarget.parentNode.classList.toggle(
+          "list-item--not-done--js"
+        );
+        const polygons = event.currentTarget.querySelectorAll(
+          ".list-item__polygon"
+        );
+        for (let polygon of polygons) {
+          polygon.classList.toggle("hidden");
+        }
+      }
+
+      function changeImportance() {
+        event.currentTarget.parentNode.classList.toggle("list-item--important");
+
+        const polygons = event.currentTarget.querySelectorAll(
+          ".list-item__polygon"
+        );
+        for (let polygon of polygons) {
+          polygon.classList.toggle("red");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="header-bar">
+      <div class="search">
+        <label for="search-task" class="visually-hidden"
+          >Wyszukaj zadanie</label
+        >
+        <input
+          class="search__input header-bar__search-input--js"
+          type="text"
+          id="search-task"
+          placeholder="wyszukaj zadanie..."
+        /><button
+          class="search__clear-button search__clear-button--not-active"
+          title="usuń tekst z pola wyszukiwania"
+          disabled
+        >
+          <img
+            src="/assets/svg/exit-white.svg"
+            class="search__clear-image"
+            alt="usuń tekst z pola wyszukiwania"
+          />
+        </button>
+      </div>
+      <button
+        class="header-bar__button header-bar__filter-button--js"
+        title="pokaż/ukryj filtry dla zadań"
+      >
+        <img
+          src="/assets/svg/filter.svg"
+          class="header-bar__image header-bar__image--js"
+          alt="pokaż filtry dla zadań"
+        />
+      </button>
+      <nav class="filter filter--js hidden">
+        <button
+          class="
+            filter__button
+            filter__button--not-done
+            filter__button--js
+            filter__button--not-done--js
+          "
+          data-filter="not-done"
+          title="pokaż tylko niezrobione zadania"
+        >
+          <img
+            src="/assets/svg/box-white.svg"
+            class="filter__image filter__image--not-done"
+            alt="pokaż tylko niezrobione zadania"
+            data-filter="not-done"
+          /></button
+        ><button
+          class="
+            filter__button
+            filter__button--done
+            filter__button--js
+            filter__button--done--js
+          "
+          data-filter="done"
+          title="pokaż tylko zrobione zadania"
+        >
+          <img
+            src="/assets/svg/tick.svg"
+            class="filter__image filter__image--done"
+            alt="pokaż tylko zrobione zadania"
+            data-filter="done"
+          /></button
+        ><button
+          class="
+            filter__button
+            filter__button--all
+            filter__button--js
+            filter__button--all--js
+          "
+          data-filter="all"
+          title="pokaż wszystkie zadania"
+        >
+          <img
+            src="/assets/svg/box-white.svg"
+            class="filter__image filter__image--all filter__image--all-not-done"
+            alt="pokaż wszystkie zadania"
+            data-filter="all"
+          /><img
+            src="/assets/svg/tick.svg"
+            class="filter__image filter__image--all filter__image--all-done"
+            alt=""
+            data-filter="all"
+          />
+        </button>
+      </nav>
+    </header>
+
+    <h1 class="title">Do zrobienia:</h1>
+    <form class="add-task">
+      <label for="add-task" class="visually-hidden">Dodaj zadanie</label>
+      <input class="add-task__input add-task__input--js" id="add-task" /><input
+        type="submit"
+        class="add-task__button add-task__button--js"
+        value="dodaj"
+      />
+      <p class="add-task__error hidden">Nie możesz dodać pustego zadania!</p>
+    </form>
+
+    <ul class="list">
+      <template class="template">
+        <li
+          class="
+            list-item list-item--js list-item--not-done list-item--not-done--js
+          "
+        >
+          <button
+            class="list-item__status list-item__status--js"
+            onclick="changeStatus()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="60"
+              height="60"
+              shape-rendering="geometricPrecision"
+              text-rendering="geometricPrecision"
+              image-rendering="optimizeQuality"
+              viewBox="0 0 60 60"
+              class="list-item__image"
+            >
+              <polygon
+                class="list-item__polygon list-item__polygon--not-done"
+                points="57 3 3 3 3 57 57 57"
+              />
+              <polyline
+                class="list-item__polygon list-item__polygon--done hidden"
+                points="40 3 3 3 3 57 57 57 57 24.9"
+              />
+              <polyline
+                class="list-item__polygon list-item__polygon--done hidden"
+                points="14 20 30 44 58 2"
+              />
+            </svg>
+          </button>
+          <span class="list-item__text list-item__text--js"></span>
+          <button
+            class="list-item__important list-item__important--js"
+            onclick="changeImportance()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="60"
+              height="60"
+              shape-rendering="geometricPrecision"
+              text-rendering="geometricPrecision"
+              image-rendering="optimizeQuality"
+              viewBox="0 0 60 60"
+              class="list-item__image"
+            >
+              <polygon
+                points="57 3 3 3 3 57 57 57 "
+                class="list-item__polygon list-item__polygon--important-box"
+              />
+              <line
+                x1="30"
+                y1="48"
+                x2="30"
+                y2="40"
+                class="list-item__polygon list-item__polygon--important"
+              />
+              <line
+                x1="30"
+                y1="12"
+                x2="30"
+                y2="34"
+                class="list-item__polygon list-item__polygon--important"
+              />
+            </svg>
+          </button>
+          <button
+            class="list-item__delete list-item__delete--js"
+            onclick="this.parentNode.remove()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              shape-rendering="geometricPrecision"
+              text-rendering="geometricPrecision"
+              image-rendering="optimizeQuality"
+              viewBox="0 0 60 60"
+            >
+              <line x1="2" y1="2" x2="58" y2="58" class="list-item__polygon" />
+              <line x1="58" y1="2" x2="2" y2="58" class="list-item__polygon" />
+            </svg>
+          </button>
+        </li>
+      </template>
+    </ul>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+@import "../variables.scss";
+
+// local variables:
+$filter-image-size: 3rem; // same as input height
+$clear-image-size: 2rem;
+
+.header-bar {
+  align-items: center;
+  background-color: $primary-color;
+  color: $background-color;
+  column-gap: 1.6rem;
+  display: grid;
+  grid-template-columns: 1fr $filter-button-size;
+  padding-left: 1.6rem;
+  position: relative;
+  width: 100vw;
+  &__button {
+    background-color: $primary-color;
+    z-index: 5;
+    &::before {
+      content: "";
+      background-color: white;
+      display: block;
+      height: 100%;
+      left: -0.2rem;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0.2rem;
+    }
+    height: $filter-button-size;
+    outline-offset: -0.5rem;
+    position: relative;
+    width: $filter-button-size;
+  }
+  &__image {
+    height: $filter-image-size;
+    width: $filter-image-size;
+  }
+}
+
+.search {
+  position: relative;
+  &__input {
+    font-size: $basic-font-size;
+    height: $filter-image-size;
+    padding-right: calc(#{$clear-image-size} + 0.5rem);
+    width: 100%;
+  }
+  &__clear-button {
+    &--not-active {
+      opacity: 0.3;
+    }
+  }
+  &__clear-image {
+    height: 2rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2rem;
+  }
+}

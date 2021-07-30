@@ -1,0 +1,64 @@
+@import "../variables.scss";
+
+// local variables:
+$button-size: 2rem;
+
+.list-item {
+  align-items: start;
+  border-bottom: 1px solid black;
+  display: grid;
+  font-size: $basic-font-size;
+  column-gap: 2rem;
+  grid-template-columns: $button-size 1fr $button-size $button-size;
+  margin-bottom: 1rem;
+  max-width: 80vw;
+  padding-bottom: 1rem;
+  width: 80vw;
+  &:last-of-type {
+    border-bottom: none;
+  }
+  &--important {
+    color: $important-color;
+    font-weight: 700;
+  }
+  &--important.list-item--done {
+    color: inherit;
+    font-weight: inherit;
+  }
+  &--done {
+    & .list-item__important {
+      visibility: hidden;
+    }
+  }
+  &__image {
+    height: $button-size;
+    width: $button-size;
+  }
+  &__polygon {
+    fill: none;
+    stroke: black;
+    stroke-width: 6;
+    &--done {
+      stroke: green;
+    }
+    &--important {
+      stroke: lightgray;
+      stroke-width: 8;
+    }
+    &--important-box {
+      stroke: lightgray;
+    }
+  }
+  &__status,
+  &__delete,
+  &__important {
+    height: 4.2rem; // make buttons clickable size
+    width: 4.2rem; // make buttons clickable size
+    margin: calc(-1 * ((4.2rem - #{$button-size}) / 2));
+    position: relative;
+  }
+
+  &--done .list-item__text {
+    text-decoration: line-through;
+  }
+}
