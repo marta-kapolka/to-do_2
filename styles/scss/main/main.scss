@@ -1,21 +1,14 @@
 // ---------- RESET STYLES ----------
-@import "../reset/normalize.scss";
-@import "../reset/reset.scss";
-@import "../reset/typography.scss";
+@use "../reset";
 
 // ---------- VARIABLES ----------
-@import "../variables.scss";
+@use "../variables.scss";
 
 // ---------- BASE STYLES ----------
-@import "../base.scss";
+@use "../base.scss";
 
 // ---------- MODULES STYLES ----------
-@import "../modules/header.scss";
-@import "../modules/filter.scss";
-@import "../modules/title.scss";
-@import "../modules/add-task.scss";
-@import "../modules/list.scss";
-@import "../modules/list-item.scss";
+@use "../modules";
 
 // ---------- STATE STYLES ----------
-@import "../states.scss";
+@use "../states.scss";
