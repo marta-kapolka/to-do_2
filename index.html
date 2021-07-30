@@ -12,33 +12,6 @@
     />
     <link rel="stylesheet" type="text/css" href="styles/css/main.css" />
     <title>to-do-list</title>
-    <script>
-      function changeStatus() {
-        event.currentTarget.parentNode.classList.toggle("list-item--done");
-        event.currentTarget.parentNode.classList.toggle("list-item--not-done");
-        event.currentTarget.parentNode.classList.toggle("list-item--done--js");
-        event.currentTarget.parentNode.classList.toggle(
-          "list-item--not-done--js"
-        );
-        const polygons = event.currentTarget.querySelectorAll(
-          ".list-item__polygon"
-        );
-        for (let polygon of polygons) {
-          polygon.classList.toggle("hidden");
-        }
-      }
-
-      function changeImportance() {
-        event.currentTarget.parentNode.classList.toggle("list-item--important");
-
-        const polygons = event.currentTarget.querySelectorAll(
-          ".list-item__polygon"
-        );
-        for (let polygon of polygons) {
-          polygon.classList.toggle("red");
-        }
-      }
-    </script>
   </head>
   <body>
     <header class="header-bar">
