@@ -1,0 +1,19 @@
+{
+  "name": "to-do-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "live-server": "live-server",
+    "sass": "sass --watch styles/scss:styles/css",
+    "start": "npm-run-all -p live-server sass"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.36.0"
+  }
+}
