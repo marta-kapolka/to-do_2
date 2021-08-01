@@ -9,6 +9,7 @@ export class ListModel {
   addTask(value) {
     this.setCurrentId();
     this._taskList.push(new Task(this._currentId, value));
+    this.sendUpdatedTasks(this._taskList);
   }
 
   setCurrentId() {
@@ -49,5 +50,9 @@ export class ListModel {
 
   changeTaskCompletion(id) {
     this._taskList[this.findTaskById(id)].changeCompletion();
+  }
+
+  bindTaskListChanged(callback) {
+    this.sendUpdatedTasks = callback;
   }
 }
