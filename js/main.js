@@ -10,6 +10,7 @@ app._listModel.addTask("cosik jeszcze");
 app._listModel.addTask("i następne");
 app._listModel.addTask("i jeszcze kolejne");
 
-app._listView.createHtmlElement("div", "ąśdasdas", "sdfasfsdf");
+// app._listView.createHtmlElement("div", "ąśdasdas", "sdfasfsdf");
 app._listView.selectHtmlElement(".list");
 app._listView.getTaskInputValue();
+app._listView.fillTemplate("coś z templatki");
