@@ -3,12 +3,13 @@ export class ListController {
     this._listModel = listModel;
     this._listView = listView;
     this._listView.bindAddTask(this.handleAddTask);
-    this._listView.bindTaskActions(this.handleTaskAction);
-    this._listModel.bindTaskListChanged(this.onTaskListChanged);
-    this.onTaskListChanged(this._listModel._taskList); // first task render (empty list)
+    this._listView.bindTaskActions(this.handleTaskActions);
+    this._listView.bindSearchTasks(this.handleSearchTasks);
+    this._listModel.bindTaskListChanged(this.handleRenderList);
+    this.handleRenderList(this._listModel._taskList); // first task render (empty list)
   }
 
-  handleTaskAction = (actionData) => {
+  handleTaskActions = (actionData) => {
     if (actionData.type === "completion") {
       this._listModel.changeTaskCompletion(actionData.id);
     }
@@ -24,7 +25,11 @@ export class ListController {
     this._listModel.addTask(taskText);
   };
 
-  onTaskListChanged = (tasks) => {
+  handleSearchTasks = (text) => {
+    this._listModel.searchTasks(text);
+  };
+
+  handleRenderList = (tasks) => {
     this._listView.renderList(tasks);
   };
 }

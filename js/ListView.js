@@ -1,20 +1,13 @@
 export class ListView {
   constructor() {
-    this._taskInput = this.selectHtmlElement(".add-task__input--js");
-    this._taskForm = this.selectHtmlElement(".add-task--js");
-    this._template = this.selectHtmlElement(".template");
-    this._list = this.selectHtmlElement(".list");
-  }
-
-  //   createHtmlElement(tag, ...className) {
-  //     const element = document.createElement(tag);
-  //     className.forEach((item) => element.classList.add(item));
-  //     return element;
-  //   }
-
-  selectHtmlElement(selector) {
-    const element = document.querySelector(selector);
-    return element;
+    this._taskInput = document.querySelector(".add-task__input--js");
+    this._taskForm = document.querySelector(".add-task--js");
+    this._template = document.querySelector(".template--js");
+    this._list = document.querySelector(".list--js");
+    this._searchInput = document.querySelector(".header-bar__search-input--js");
+    this._searchInputClearButton = document.querySelector(
+      ".search__clear-button--js"
+    );
   }
 
   fillTemplate(taskText) {
@@ -35,6 +28,46 @@ export class ListView {
       e.preventDefault();
       handler(this._taskInput.value);
       this.deleteInputValue(this._taskInput);
+    });
+  }
+
+  bindSearchTasks(handler) {
+    // create named function to be able to remove event listener on keyup when input is not focused, created inside bindSearchTask because of using handler
+    const search = () => {
+      // enable / disable clear button
+      if (this._searchInput.value !== "") {
+        this._searchInputClearButton.classList.remove(
+          "search__clear-button--not-active"
+        );
+        this._searchInputClearButton.disabled = false;
+      } else {
+        this._searchInputClearButton.classList.add(
+          "search__clear-button--not-active"
+        );
+        this._searchInputClearButton.disabled = true;
+      }
+      // search tasks in model
+      handler(this._searchInput.value);
+    };
+
+    // create named function to be able to remove event listener on click when input is empty, created inside bindSearchTask because of using search that uses handler
+    const clearSearchInput = () => {
+      this._searchInput.value = "";
+      this._searchInputClearButton.removeEventListener(
+        "click",
+        clearSearchInput
+      );
+      // disable clear button, search (all) tasks in model -> render tasks
+      search();
+    };
+
+    this._searchInput.addEventListener("focusin", () => {
+      this._searchInput.addEventListener("keyup", search);
+      this._searchInputClearButton.addEventListener("click", clearSearchInput);
+    });
+
+    this._searchInput.addEventListener("focusout", () => {
+      this._searchInput.removeEventListener("keyup", search);
     });
   }
 

@@ -20,17 +20,20 @@ export class ListModel {
   findTaskById(id) {
     // return task with matching id
     return this._taskList.indexOf(
-      this._taskList.find((item) => item._id === id)
+      this._taskList.find((task) => task._id === id)
     );
   }
 
-  findTasksByValue(text) {
+  searchTasks(text) {
     // return array of tasks which include text
-    return this._taskList.filter((item) => item._value.includes(text));
+
+    this.sendUpdatedTasks(
+      this._taskList.filter((task) => task._value.includes(text))
+    );
   }
 
   filterTasks(property, value) {
-    return this._taskList.filter((item) => item[`_${property}`] === value);
+    return this._taskList.filter((task) => task[`_${property}`] === value);
   }
 
   //   sortTasks() {    APPLY IN VIEW WHEN RENDERING..?

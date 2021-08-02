@@ -25,7 +25,11 @@
           id="search-task"
           placeholder="wyszukaj zadanie..."
         /><button
-          class="search__clear-button search__clear-button--not-active"
+          class="
+            search__clear-button
+            search__clear-button--js
+            search__clear-button--not-active
+          "
           title="usuń tekst z pola wyszukiwania"
           disabled
         >
@@ -115,8 +119,8 @@
       <p class="add-task__error hidden">Nie możesz dodać pustego zadania!</p>
     </form>
 
-    <ul class="list">
-      <template class="template">
+    <ul class="list list--js">
+      <template class="template template--js">
         <li
           class="
             list-item list-item--js list-item--not-done list-item--not-done--js
