@@ -83,36 +83,23 @@ export class ListView {
   }
 
   renderList(tasks) {
+    const listItem = this._template.content.querySelector(".list-item--js");
     this._list.innerHTML = "";
     tasks.forEach((task) => {
       this._template.content.querySelector(".list-item__text--js").innerText =
         task._value;
-      this._template.content
-        .querySelector(".list-item--js")
-        .setAttribute("data-id", `${task._id}`);
+      listItem.setAttribute("data-id", `${task._id}`);
       if (task._important) {
-        this._template.content
-          .querySelector(".list-item--js")
-          .classList.add("list-item--important");
+        listItem.classList.add("list-item--important");
       } else {
-        this._template.content
-          .querySelector(".list-item--js")
-          .classList.remove("list-item--important");
+        listItem.classList.remove("list-item--important");
       }
       if (task._complete) {
-        this._template.content
-          .querySelector(".list-item--js")
-          .classList.add("list-item--done");
-        this._template.content
-          .querySelector(".list-item--js")
-          .classList.remove("list-item--not-done");
+        listItem.classList.add("list-item--done");
+        listItem.classList.remove("list-item--not-done");
       } else {
-        this._template.content
-          .querySelector(".list-item--js")
-          .classList.add("list-item--not-done");
-        this._template.content
-          .querySelector(".list-item--js")
-          .classList.remove("list-item--done");
+        listItem.classList.add("list-item--not-done");
+        listItem.classList.remove("list-item--done");
       }
       this._list.appendChild(document.importNode(this._template.content, true));
     });
