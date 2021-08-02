@@ -38,6 +38,17 @@ export class ListView {
     });
   }
 
+  bindTaskActions(handler) {
+    this._list.addEventListener("click", (e) => {
+      if (e.target.closest("button")) {
+        handler({
+          type: e.target.closest("button").dataset.type,
+          id: +e.target.closest("button").parentNode.dataset.id,
+        });
+      }
+    });
+  }
+
   renderList(tasks) {
     this._list.innerHTML = "";
     tasks.forEach((task) => {
@@ -46,6 +57,30 @@ export class ListView {
       this._template.content
         .querySelector(".list-item--js")
         .setAttribute("data-id", `${task._id}`);
+      if (task._important) {
+        this._template.content
+          .querySelector(".list-item--js")
+          .classList.add("list-item--important");
+      } else {
+        this._template.content
+          .querySelector(".list-item--js")
+          .classList.remove("list-item--important");
+      }
+      if (task._complete) {
+        this._template.content
+          .querySelector(".list-item--js")
+          .classList.add("list-item--done");
+        this._template.content
+          .querySelector(".list-item--js")
+          .classList.remove("list-item--not-done");
+      } else {
+        this._template.content
+          .querySelector(".list-item--js")
+          .classList.add("list-item--not-done");
+        this._template.content
+          .querySelector(".list-item--js")
+          .classList.remove("list-item--done");
+      }
       this._list.appendChild(document.importNode(this._template.content, true));
     });
   }

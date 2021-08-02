@@ -42,14 +42,17 @@ export class ListModel {
 
   removeTask(id) {
     this._taskList.splice(this.findTaskById(id), 1);
+    this.sendUpdatedTasks(this._taskList);
   }
 
   changeTaskImportance(id) {
     this._taskList[this.findTaskById(id)].changeImportance();
+    this.sendUpdatedTasks(this._taskList);
   }
 
   changeTaskCompletion(id) {
     this._taskList[this.findTaskById(id)].changeCompletion();
+    this.sendUpdatedTasks(this._taskList);
   }
 
   bindTaskListChanged(callback) {

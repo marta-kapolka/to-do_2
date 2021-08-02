@@ -20,6 +20,12 @@ $button-size: 2rem;
   &--important {
     color: $important-color;
     font-weight: 700;
+    & .list-item__polygon--important {
+      stroke: $important-color;
+    }
+    & .list-item__polygon--important-box {
+      stroke: $important-color;
+    }
   }
   &--important.list-item--done {
     color: inherit;
@@ -27,6 +33,14 @@ $button-size: 2rem;
   }
   &--done {
     & .list-item__important {
+      visibility: hidden;
+    }
+    & .list-item__polygon--not-done {
+      visibility: hidden;
+    }
+  }
+  &--not-done {
+    & .list-item__polygon--done {
       visibility: hidden;
     }
   }
