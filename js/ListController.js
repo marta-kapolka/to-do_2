@@ -5,6 +5,7 @@ export class ListController {
     this._listView.bindAddTask(this.handleAddTask);
     this._listView.bindTaskActions(this.handleTaskActions);
     this._listView.bindSearchTasks(this.handleSearchTasks);
+    this._listView.bindFilters(this.handleFilters);
     this._listModel.bindTaskListChanged(this.handleRenderList);
     this.handleRenderList(this._listModel._taskList); // first task render (empty list)
   }
@@ -27,6 +28,16 @@ export class ListController {
 
   handleSearchTasks = (text) => {
     this._listModel.searchTasks(text);
+  };
+
+  handleFilters = (filter) => {
+    if (filter === "done") {
+      this._listModel.filterTasks("complete", true);
+    } else if (filter === "not-done") {
+      this._listModel.filterTasks("complete", false);
+    } else {
+      this._listModel.sendUpdatedTasks(this._listModel._taskList);
+    }
   };
 
   handleRenderList = (tasks) => {

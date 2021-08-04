@@ -8,6 +8,13 @@ export class ListView {
     this._searchInputClearButton = document.querySelector(
       ".search__clear-button--js"
     );
+    this._filterMenu = document.querySelector(".filter--js");
+    this._filterButton = document.querySelector(
+      ".header-bar__filter-button--js"
+    );
+    this._filterButtons = document.querySelectorAll(".filter__button--js");
+    this.manageFilterMenu();
+    this._hideFilterMenuBinder = this.hideFilterMenu.bind(this);
   }
 
   fillTemplate(taskText) {
@@ -21,6 +28,43 @@ export class ListView {
 
   deleteInputValue(input) {
     input.value = "";
+  }
+
+  manageFilterMenu() {
+    this._filterButton.addEventListener("click", () => {
+      this._filterMenu.classList.contains("hidden")
+        ? this.openFilterMenu()
+        : this.closeFilterMenu();
+    });
+  }
+
+  openFilterMenu() {
+    this._filterMenu.classList.remove("hidden");
+    for (let button of this._filterButtons) {
+      button.classList.add("open");
+    }
+  }
+
+  closeFilterMenu() {
+    for (let button of this._filterButtons) {
+      button.classList.add("closing");
+      button.classList.remove("open");
+    }
+    this._filterButtons[2].addEventListener(
+      "transitionend",
+      this._hideFilterMenuBinder
+    );
+  }
+
+  hideFilterMenu() {
+    this._filterMenu.classList.add("hidden");
+    for (let button of this._filterButtons) {
+      button.classList.remove("closing");
+    }
+    this._filterButtons[2].removeEventListener(
+      "transitionend",
+      this._hideFilterMenuBinder
+    );
   }
 
   bindAddTask(handler) {
@@ -72,6 +116,8 @@ export class ListView {
   }
 
   bindTaskActions(handler) {
+    // action type taken from button data-type attribute -> completion, importance, delete
+    // action id taken from list-item data-id attribute
     this._list.addEventListener("click", (e) => {
       if (e.target.closest("button")) {
         handler({
@@ -79,6 +125,13 @@ export class ListView {
           id: +e.target.closest("button").parentNode.dataset.id,
         });
       }
+    });
+  }
+
+  bindFilters(handler) {
+    this._filterMenu.addEventListener("click", (e) => {
+      handler(e.target.closest("button").dataset.filter);
+      this.closeFilterMenu();
     });
   }
 

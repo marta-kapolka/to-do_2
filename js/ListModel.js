@@ -33,7 +33,9 @@ export class ListModel {
   }
 
   filterTasks(property, value) {
-    return this._taskList.filter((task) => task[`_${property}`] === value);
+    this.sendUpdatedTasks(
+      this._taskList.filter((task) => task[`_${property}`] === value)
+    );
   }
 
   //   sortTasks() {    APPLY IN VIEW WHEN RENDERING..?
