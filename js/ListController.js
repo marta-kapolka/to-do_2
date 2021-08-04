@@ -7,6 +7,7 @@ export class ListController {
     this._listView.bindSearchTasks(this.handleSearchTasks);
     this._listView.bindFilters(this.handleFilters);
     this._listModel.bindTaskListChanged(this.handleRenderList);
+    this._listModel.bindErrorUpdated(this.handleErrorMessage);
     this.handleRenderList(this._listModel._taskList); // first task render (empty list)
   }
 
@@ -42,5 +43,9 @@ export class ListController {
 
   handleRenderList = (tasks) => {
     this._listView.renderList(tasks);
+  };
+
+  handleErrorMessage = (error) => {
+    this._listView.manageErrorMessage(error);
   };
 }

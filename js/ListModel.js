@@ -7,9 +7,18 @@ export class ListModel {
   }
 
   addTask(value) {
-    this.setCurrentId();
-    this._taskList.push(new Task(this._currentId, value));
-    this.sendUpdatedTasks(this._taskList);
+    if (value === "") {
+      this.sendErrorMessage("empty");
+    } else if (
+      this._taskList.find((task) => task._value === value) !== undefined
+    ) {
+      this.sendErrorMessage("repeated");
+    } else {
+      this.setCurrentId();
+      this._taskList.push(new Task(this._currentId, value));
+      this.sendUpdatedTasks(this._taskList);
+      this.sendErrorMessage("ok");
+    }
   }
 
   setCurrentId() {
@@ -62,5 +71,9 @@ export class ListModel {
 
   bindTaskListChanged(callback) {
     this.sendUpdatedTasks = callback;
+  }
+
+  bindErrorUpdated(callback) {
+    this.sendErrorMessage = callback;
   }
 }

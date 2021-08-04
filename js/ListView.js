@@ -4,6 +4,7 @@ export class ListView {
     this._taskForm = document.querySelector(".add-task--js");
     this._template = document.querySelector(".template--js");
     this._list = document.querySelector(".list--js");
+    this._errorMessage = document.querySelector(".add-task__error--js");
     this._searchInput = document.querySelector(".header-bar__search-input--js");
     this._searchInputClearButton = document.querySelector(
       ".search__clear-button--js"
@@ -65,6 +66,19 @@ export class ListView {
       "transitionend",
       this._hideFilterMenuBinder
     );
+  }
+
+  manageErrorMessage(error) {
+    if (error === "empty") {
+      this._errorMessage.innerHTML = "Nie możesz dodać pustego zadania!";
+      this._errorMessage.classList.remove("hidden");
+    } else if (error === "repeated") {
+      this._errorMessage.innerHTML = "To zadanie jest już na liście!";
+      this._errorMessage.classList.remove("hidden");
+    } else if (error === "ok") {
+      this._errorMessage.innerHTML = "";
+      this._errorMessage.classList.add("hidden");
+    }
   }
 
   bindAddTask(handler) {
