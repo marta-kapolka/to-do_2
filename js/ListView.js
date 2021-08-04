@@ -85,7 +85,9 @@ export class ListView {
     this._taskForm.addEventListener("submit", (e) => {
       e.preventDefault();
       handler(this._taskInput.value);
-      this.deleteInputValue(this._taskInput);
+      if (this._errorMessage.innerHTML === "") {
+        this.deleteInputValue(this._taskInput);
+      }
     });
   }
 
