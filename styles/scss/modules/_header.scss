@@ -13,7 +13,7 @@ $clear-image-size: 2rem;
   grid-template-columns: 1fr $filter-button-size;
   padding-left: 1.6rem;
   position: relative;
-  width: 100vw;
+  width: 100%;
   &__button {
     background-color: $primary-color;
     z-index: 5;
