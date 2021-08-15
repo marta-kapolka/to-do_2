@@ -12,11 +12,8 @@ export class ListController {
   }
 
   handleTaskActions = (actionData) => {
-    if (actionData.type === "completion") {
-      this._listModel.changeTaskCompletion(actionData.id);
-    }
-    if (actionData.type === "importance") {
-      this._listModel.changeTaskImportance(actionData.id);
+    if (actionData.type === "completion" || actionData.type === "importance") {
+      this._listModel.changeTaskFlag(actionData.type, actionData.id);
     }
     if (actionData.type === "delete") {
       this._listModel.removeTask(actionData.id);

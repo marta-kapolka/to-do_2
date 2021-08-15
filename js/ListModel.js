@@ -6,18 +6,30 @@ export class ListModel {
     this._currentId = 1;
   }
 
-  addTask(value) {
-    if (value === "") {
+  createNewTask(taskText) {
+    this.setCurrentId();
+    return new Task(this._currentId, taskText);
+  }
+
+  addTask(taskText) {
+    if (this.validateTaskToAdd(taskText)) {
+      this._taskList.push(this.createNewTask(taskText));
+      this.sendUpdatedTasks(this._taskList);
+    }
+  }
+
+  validateTaskToAdd(taskText) {
+    if (taskText === "") {
       this.sendErrorMessage("empty");
+      return false;
     } else if (
-      this._taskList.find((task) => task._value === value) !== undefined
+      this._taskList.find((task) => task._value === taskText) !== undefined
     ) {
       this.sendErrorMessage("repeated");
+      return false;
     } else {
-      this.setCurrentId();
-      this._taskList.push(new Task(this._currentId, value));
-      this.sendUpdatedTasks(this._taskList);
       this.sendErrorMessage("ok");
+      return true;
     }
   }
 
@@ -34,8 +46,7 @@ export class ListModel {
   }
 
   searchTasks(text) {
-    // return array of tasks which include text
-
+    // update view with array of tasks which include given text
     this.sendUpdatedTasks(
       this._taskList.filter((task) => task._value.includes(text))
     );
@@ -59,13 +70,11 @@ export class ListModel {
     this.sendUpdatedTasks(this._taskList);
   }
 
-  changeTaskImportance(id) {
-    this._taskList[this.findTaskById(id)].changeImportance();
-    this.sendUpdatedTasks(this._taskList);
-  }
-
-  changeTaskCompletion(id) {
-    this._taskList[this.findTaskById(id)].changeCompletion();
+  changeTaskFlag(type, id) {
+    if (type === "completion")
+      this._taskList[this.findTaskById(id)].changeCompletion();
+    if (type === "importance")
+      this._taskList[this.findTaskById(id)].changeImportance();
     this.sendUpdatedTasks(this._taskList);
   }
 
